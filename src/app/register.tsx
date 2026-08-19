@@ -3,37 +3,41 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import styles from "./login";
 import { useState } from "react";
-import { Link } from "expo-router";
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import LogoApp from "@/components/LogoApp";
 import ButtonFatec from "@/components/Button";
 
-export default function Index() {
+export default function Register() {
 
   const [login, setLogin ] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [fullname, setFullname] = useState<string>();
+  
   const router = useRouter();
-
   function onPressButton(){
-    if ( login =="teste" && password == "123"){
-       router.navigate('/(dash)');
-    } else {
-      Alert.alert("senha ou password Invalido !")
-    }
+    
+    router.navigate("/");
   }
 
   return (
     <View style={styles.container}>
+      <LogoApp />
+      <Text style={styles.titulo}>Registro</Text>
+      <Text style={styles.subtitulo}>Estmos feliz com sua escola.</Text>
       
-      <LogoApp />  
-      <Text style={styles.titulo}>Login</Text>
-      <Text style={styles.subtitulo}>Bem vindo, estamos pelo seu retorno, faça o login...</Text>
-      
+      <Text style={styles.inputText}>Nome Completo</Text>
+      <TextInput style={styles.input}
+        onChangeText={(value)=>{ setFullname(value)}}
+        placeholder="informe o Completo sem Abreviação..."
+        maxLength={60}
+        autoFocus
+      />
+
       <Text style={styles.inputText}>Login</Text>
       <TextInput style={styles.input}
         onChangeText={(value)=>{ setLogin(value)}}
         placeholder="informe o login..."
-        autoFocus
+        
       />
 
       <Text style={styles.inputText}>Password</Text>
@@ -44,14 +48,14 @@ export default function Index() {
         onChangeText={(value)=>{setPassword(value)}}
       />
       
-      <Text style={styles.subtitulo}>Caso não possua registro. 
-          <Link style={{color:"red"}} href={"/register"}>Registre-se aqui</Link>
+      <Text style={styles.subtitulo}>Já possui Registro!, 
+          <Link style={{color:"red"}} href={"/"}>volte para o login</Link>
       </Text>
-      <ButtonFatec
-          onFunctionButton={onPressButton}
-          titleButton="Acessar"
-       />
-     
+      <ButtonFatec 
+      onFunctionButton={onPressButton}
+      titleButton="Registrar"
+      />
+ 
     </View>
   );
 }

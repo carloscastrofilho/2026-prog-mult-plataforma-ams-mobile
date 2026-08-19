@@ -54,3 +54,12 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+- Tabs
+
+Propriedades Principais de Estilização
+* tabBarStyle: Altera o estilo do container da barra (fundo, bordas, altura, margens e sombras).
+* tabBarActiveTintColor e tabBarInactiveTintColor: Mudam as cores dos ícones e rótulos ativos e inativos.
+* tabBarLabelStyle: Modifica a fonte e o estilo do texto da aba.* 
+* headerShown: Define se o cabeçalho no topo da tela aparece ou some.
