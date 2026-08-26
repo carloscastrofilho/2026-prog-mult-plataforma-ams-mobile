@@ -5,7 +5,7 @@ import LogoApp from "@/components/LogoApp";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
-import styles from "./login";
+import styles from "./logincss";
 
 export default function Register() {
   const [login, setLogin] = useState<string>();

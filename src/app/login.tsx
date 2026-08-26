@@ -5,7 +5,7 @@ import ButtonFatec from "@/components/Button";
 import LogoApp from "@/components/LogoApp";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
-import styles from "./login";
+import styles from "./logincss";
 
 export default function Index() {
   const [login, setLogin] = useState<string>();
