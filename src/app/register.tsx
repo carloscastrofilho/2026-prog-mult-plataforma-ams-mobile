@@ -1,21 +1,19 @@
-import { Text, View, TextInput, Image, TouchableOpacity, Alert } from "react-native";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Text, TextInput, View } from "react-native";
 
-import styles from "./login";
-import { useState } from "react";
-import { Link, useRouter } from 'expo-router';
-import LogoApp from "@/components/LogoApp";
 import ButtonFatec from "@/components/Button";
+import LogoApp from "@/components/LogoApp";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Link, useRouter } from "expo-router";
+import { useState } from "react";
+import styles from "./login";
 
 export default function Register() {
-
-  const [login, setLogin ] = useState<string>();
+  const [login, setLogin] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [fullname, setFullname] = useState<string>();
-  
+
   const router = useRouter();
-  function onPressButton(){
-    
+  function onPressButton() {
     router.navigate("/");
   }
 
@@ -24,38 +22,49 @@ export default function Register() {
       <LogoApp />
       <Text style={styles.titulo}>Registro</Text>
       <Text style={styles.subtitulo}>Estmos feliz com sua escola.</Text>
-      
+
       <Text style={styles.inputText}>Nome Completo</Text>
-      <TextInput style={styles.input}
-        onChangeText={(value)=>{ setFullname(value)}}
+      <TextInput
+        style={styles.input}
+        onChangeText={(value) => {
+          setFullname(value);
+        }}
         placeholder="informe o Completo sem Abreviação..."
         maxLength={60}
         autoFocus
       />
 
       <Text style={styles.inputText}>Login</Text>
-      <TextInput style={styles.input}
-        onChangeText={(value)=>{ setLogin(value)}}
+      <TextInput
+        style={styles.input}
+        onChangeText={(value) => {
+          setLogin(value);
+        }}
         placeholder="informe o login..."
-        
       />
 
       <Text style={styles.inputText}>Password</Text>
-      <TextInput style={styles.input} 
+      <TextInput
+        style={styles.input}
         placeholder="informe a senha de acesso..."
         secureTextEntry
         maxLength={12}
-        onChangeText={(value)=>{setPassword(value)}}
+        onChangeText={(value) => {
+          setPassword(value);
+        }}
       />
-      
-      <Text style={styles.subtitulo}>Já possui Registro!, 
-          <Link style={{color:"red"}} href={"/"}>volte para o login</Link>
+
+      <Text style={styles.subtitulo}>
+        Já possui Registro!,
+        <Link style={{ color: "red" }} href={"/"}>
+          volte para o login
+        </Link>
       </Text>
-      <ButtonFatec 
-      onFunctionButton={onPressButton}
-      titleButton="Registrar"
+      <ButtonFatec
+        onFunctionButton={onPressButton}
+        titleButton="Registrar"
+        icon={<Ionicons name="checkmark-sharp" size={32} color="#fff" />}
       />
- 
     </View>
   );
 }
