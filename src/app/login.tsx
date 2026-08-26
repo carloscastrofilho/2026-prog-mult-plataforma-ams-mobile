@@ -4,17 +4,20 @@ import { Alert, Text, TextInput, View } from "react-native";
 import ButtonFatec from "@/components/Button";
 import LogoApp from "@/components/LogoApp";
 import { Link, useRouter } from "expo-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./logincss";
+import { AuthContext } from "./utils/AuthContext";
 
 export default function Index() {
   const [login, setLogin] = useState<string>();
   const [password, setPassword] = useState<string>();
   const router = useRouter();
+  const auth = useContext(AuthContext);
 
   function onPressButton() {
     if (login == "teste" && password == "123") {
-      router.navigate("/(dash)");
+      //router.navigate("/(dash)");
+      auth.logIn();
     } else {
       Alert.alert("senha ou password Invalido !");
     }

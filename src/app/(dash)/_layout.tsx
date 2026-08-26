@@ -1,10 +1,12 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Redirect, Tabs } from "expo-router";
-
-const isLoggedIn = true;
+import { useContext } from "react";
+import { AuthContext } from "../utils/AuthContext";
 
 export default function DashLayout() {
-  if (!isLoggedIn) {
+  const auth = useContext(AuthContext);
+
+  if (!auth.isLoggedIn) {
     return <Redirect href={"/login"} />;
   }
   return (
