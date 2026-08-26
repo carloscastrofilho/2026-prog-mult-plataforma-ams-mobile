@@ -3,7 +3,7 @@ import { Redirect, Tabs } from "expo-router";
 
 const isLoggedIn = true;
 
-export default function RootLayout() {
+export default function DashLayout() {
   if (!isLoggedIn) {
     return <Redirect href={"/login"} />;
   }
