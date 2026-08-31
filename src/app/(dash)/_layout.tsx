@@ -6,6 +6,10 @@ import { AuthContext } from "../utils/AuthContext";
 export default function DashLayout() {
   const auth = useContext(AuthContext);
 
+  if (!auth.isReading) {
+    return null;
+  }
+
   if (!auth.isLoggedIn) {
     return <Redirect href={"/login"} />;
   }
