@@ -4,10 +4,24 @@ import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
+interface Payload {
+  user: User | null;
+  isLoggedIn: boolean;
+  token: string | null;
+}
+
+interface User {
+  id: number;
+  nome: string | undefined;
+  email?: string;
+  avatar?: string;
+}
+
 type ContextProps = {
+  user: User | null;
   isLoggedIn: boolean;
   isReading: boolean;
-  logIn: () => void;
+  logIn: (login: string | undefined, password: string) => void;
   logOut: () => void;
 };
 
@@ -17,6 +31,7 @@ export const AuthContext = createContext<ContextProps>({
   isReading: false,
   logIn: () => {},
   logOut: () => {},
+  user: null,
 });
 
 const authStorage = "auth-key";
@@ -24,6 +39,7 @@ const authStorage = "auth-key";
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isReading, setIsReading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const router = useRouter();
 
@@ -33,9 +49,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       //await new Promise((res) => setTimeout(() => res(null), 1000));
       const response = await AsyncStorage.getItem(authStorage);
       if (response) {
-        const jsonValue = JSON.parse(response);
-        console.log(jsonValue.isLoogedIn);
-        setIsLoggedIn(jsonValue.isLoogedIn);
+        const jsonValue: Payload = JSON.parse(response);
+        console.log(jsonValue);
+        setIsLoggedIn(jsonValue.isLoggedIn);
+        setUser(jsonValue.user);
       }
       setIsReading(true);
     };
@@ -49,7 +66,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
   }, [isReading]);
 
-  const storeAuthState = async (newState: { isLoogedIn: boolean }) => {
+  const storeAuthState = async (newState: Payload) => {
     try {
       const jsonValue = JSON.stringify(newState);
       await AsyncStorage.setItem(authStorage, jsonValue);
@@ -59,20 +76,42 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
   };
 
-  const logIn = async () => {
+  const logIn = async (login: string | undefined, password: string) => {
     setIsLoggedIn(true);
-    await storeAuthState({ isLoogedIn: true });
+    const newUser: User = {
+      id: 1,
+      nome: login,
+      email: login,
+    };
+
+    const payload: Payload = {
+      user: newUser,
+      isLoggedIn: true,
+      token: "aqui o vai o tken",
+    };
+
+    await storeAuthState(payload);
+
+    setUser(newUser);
     router.push("/");
   };
 
   const logOut = async () => {
     setIsLoggedIn(false);
-    await storeAuthState({ isLoogedIn: false });
+    const payload: Payload = {
+      isLoggedIn: false,
+      user: null,
+      token: null,
+    };
+    await storeAuthState(payload);
+    setUser(null);
     router.push("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ isReading, isLoggedIn, logIn, logOut }}>
+    <AuthContext.Provider
+      value={{ user, isReading, isLoggedIn, logIn, logOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

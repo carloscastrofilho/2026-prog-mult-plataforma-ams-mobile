@@ -15,9 +15,10 @@ export default function Index() {
   const auth = useContext(AuthContext);
 
   function onPressButton() {
-    if (login == "teste" && password == "123") {
+    if (login !== "" && password == "123") {
       //router.navigate("/(dash)");
-      auth.logIn();
+      auth.logIn(login, password);
+      //
     } else {
       Alert.alert("senha ou password Invalido !");
     }
