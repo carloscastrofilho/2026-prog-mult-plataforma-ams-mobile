@@ -14,7 +14,10 @@ export default function Index() {
   return (
     <View style={estilos.container}>
       <Text> Dasboard </Text>
+      <Text> usuario: {auth.user?.id} </Text>
       <Text> usuario: {auth.user?.nome} </Text>
+      <Text> usuario: {auth.user?.email} </Text>
+
       <ButtonFatec onFunctionButton={onClickClose} titleButton="Sair" />
     </View>
   );

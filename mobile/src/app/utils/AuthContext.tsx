@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SplashScreen, useRouter } from "expo-router";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { AuthLogin } from "../api/authApi";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,16 +22,16 @@ type ContextProps = {
   user: User | null;
   isLoggedIn: boolean;
   isReading: boolean;
-  logIn: (login: string | undefined, password: string) => void;
-  logOut: () => void;
+  logIn: (login: string, password: string) => Promise<boolean>;
+  logOut: () => Promise<void>;
 };
 
 // stado inicial para os valores
 export const AuthContext = createContext<ContextProps>({
   isLoggedIn: false,
   isReading: false,
-  logIn: () => {},
-  logOut: () => {},
+  logIn: async () => false,
+  logOut: async () => {},
   user: null,
 });
 
@@ -76,24 +77,32 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
   };
 
-  const logIn = async (login: string | undefined, password: string) => {
+  const logIn = async (login: string, password: string) => {
+    const response = await AuthLogin(login, password);
+    if (!response) return false;
+    if (response.message !== "sucess") {
+      return false;
+    }
     setIsLoggedIn(true);
+
+    const { id, name } = response.user;
     const newUser: User = {
-      id: 1,
-      nome: login,
+      id: id,
+      nome: name,
       email: login,
     };
 
     const payload: Payload = {
       user: newUser,
       isLoggedIn: true,
-      token: "aqui o vai o tken",
+      token: response.data,
     };
 
     await storeAuthState(payload);
 
     setUser(newUser);
     router.push("/");
+    return true;
   };
 
   const logOut = async () => {

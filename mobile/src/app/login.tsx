@@ -14,11 +14,12 @@ export default function Index() {
   const router = useRouter();
   const auth = useContext(AuthContext);
 
-  function onPressButton() {
-    if (login !== "" && password == "123") {
-      //router.navigate("/(dash)");
-      auth.logIn(login, password);
-      //
+  async function onPressButton() {
+    if (login === undefined) return;
+    if (password == undefined) return;
+    const resultLogin = await auth.logIn(login, password);
+    if (resultLogin) {
+      router.navigate("/");
     } else {
       Alert.alert("senha ou password Invalido !");
     }
