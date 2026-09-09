@@ -1,5 +1,5 @@
 @host = http://localhost
-@port = 3501
+@port = 3500
 @endpoint = users
 
 @url = {{host}}:{{port}}/{{endpoint}} 
@@ -13,7 +13,7 @@ GET {{url}}/1
 
 ###
 # getByEmail
-GET {{url}}/email/provara022@fatec.co
+GET {{url}}/email/provara022@fatec.com
 
 ###
 # inclui novos registros
