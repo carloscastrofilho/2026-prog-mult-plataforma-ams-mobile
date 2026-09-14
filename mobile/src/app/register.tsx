@@ -5,6 +5,7 @@ import LogoApp from "@/components/LogoApp";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
+import { AuthRegister } from "./api/authApi";
 import styles from "./logincss";
 
 export default function Register() {
@@ -13,7 +14,14 @@ export default function Register() {
   const [fullname, setFullname] = useState<string>();
 
   const router = useRouter();
-  function onPressButton() {
+
+  async function onPressRegister() {
+    if (!fullname || !login || !password) return;
+    const response = await AuthRegister({
+      name: fullname,
+      login: login,
+      password: password,
+    });
     router.navigate("/");
   }
 
@@ -61,7 +69,7 @@ export default function Register() {
         </Link>
       </Text>
       <ButtonFatec
-        onFunctionButton={onPressButton}
+        onFunctionButton={onPressRegister}
         titleButton="Registrar"
         icon={<Ionicons name="checkmark-sharp" size={32} color="#fff" />}
       />

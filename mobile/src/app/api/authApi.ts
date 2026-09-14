@@ -15,7 +15,7 @@ export async function AuthLogin( login:string , password:string){
             body: JSON.stringify(payload),
         });
         const resultado = await response.json();
-        console.log('Criado com sucesso:', resultado);
+        console.log('Login validado com sucesso:', resultado);
         return resultado;
 
     } catch (erro) {
@@ -23,4 +23,34 @@ export async function AuthLogin( login:string , password:string){
         return null
     }
 
+}
+
+interface UserProsp {
+    id? : number,
+    name : string,
+    login : string ,
+    password : string
+}
+
+export async function AuthRegister( {name, login, password }:UserProsp){
+
+    try {
+        const userPayload:UserProsp = {
+            name,login, password
+        }
+        const response = await fetch( `${apiUri}/auth/register` , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body : JSON.stringify(userPayload)
+        });
+        const resultado = await response.json();
+        console.log('Criado com sucesso:', resultado);
+
+        return resultado;
+    } catch (error) {
+        console.error('Erro ao criar:', error);
+        return null;
+    }
 }
