@@ -5,6 +5,7 @@ import {
   Text,
   TextStyle,
   TouchableOpacity,
+  TouchableOpacityProps,
   ViewStyle,
 } from "react-native";
 
@@ -14,6 +15,7 @@ interface ButtonFatecProps {
   icon?: ReactNode;
   styleButton?: StyleProp<ViewStyle>;
   styleTitle?: StyleProp<TextStyle>;
+  props: TouchableOpacityProps;
 }
 
 export default function ButtonFatec({
@@ -22,14 +24,10 @@ export default function ButtonFatec({
   icon,
   styleButton,
   styleTitle,
+  props,
 }: ButtonFatecProps) {
   return (
-    <TouchableOpacity
-      style={[estilos.button, styleButton]}
-      onPress={() => {
-        onFunctionButton ? onFunctionButton() : console.log("");
-      }}
-    >
+    <TouchableOpacity {...props} style={[estilos.button, styleButton]}>
       {icon}
       <Text style={[estilos.buttonText, styleTitle]}>{titleButton}</Text>
     </TouchableOpacity>

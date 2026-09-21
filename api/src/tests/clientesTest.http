@@ -1,5 +1,5 @@
 @host = http://localhost
-@port = 3501
+@port = 3500
 @endpoint = clientes
 
 @url = {{host}}:{{port}}/{{endpoint}} 
@@ -17,10 +17,10 @@ POST  {{url}}
 Content-Type: application/json; charset=utf-8
 
 {
-      "nome": "prova 022",
-      "celular": "16 99999-1114",
-      "email" : "provara022@fatec.com",
-      "avatar" : ""
+      "nome": "Pedro Jose",
+      "telefone": "16 98899-1122",
+      "email" : "pedrojose@test.com"
+      
     }
 
 ###

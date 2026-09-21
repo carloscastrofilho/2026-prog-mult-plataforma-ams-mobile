@@ -53,19 +53,14 @@ export class DatabaseSchema {
         const dbName = dbStrategy.databaseName ;
         
         const map = TYPE_MAP[dialect];
-        const queriesc = [];
+        const queries = [];
 
         console.log( ` schmea : ${forceRefresh} - ${dbName} e ${dialect}` )
         // 1. Tratativa para criação do Banco de Dados se forceRefresh for true
         if (forceRefresh && dbName) {
             if (dialect === 'mysql') {
                 // No MySQL, criamos o banco se ele não existir
-                             
-                queriesc.push(`CREATE DATABASE IF NOT EXISTS ${dbName};`);
-                
-                for (const query of queriesc) {
-                    await dbStrategy.execute( query );
-                }
+         
             } else if (dialect === 'sqlserver') {
                 // No SQL Server, verificamos na master e criamos
                 queries.push(`USE master;`);                
@@ -74,7 +69,7 @@ export class DatabaseSchema {
             }
             // O SQLite geralmente cria o arquivo automaticamente, então não precisa de CREATE DATABASE explícito.
         }
-        const queries = [];
+        
         // Opcional para MySQL: Desativar checagem de chave estrangeira para o DROP não falhar por ordem
         if (forceRefresh && dialect === 'mysql') {
             queries.push(`SET FOREIGN_KEY_CHECKS = 0;`);

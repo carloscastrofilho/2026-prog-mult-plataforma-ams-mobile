@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SplashScreen, useRouter } from "expo-router";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
-import { AuthLogin } from "../api/authApi";
+import { AuthLogin } from "../../api/authApi";
 
 SplashScreen.preventAutoHideAsync();
 

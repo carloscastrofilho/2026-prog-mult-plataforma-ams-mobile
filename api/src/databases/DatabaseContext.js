@@ -1,5 +1,5 @@
-import { pool } from "./connections/connectionMysql.js";
-import { getDbConnection } from "./connections/connectionSqllite.js"; 
+import { createDatabaseIfNotExists, pool } from "./connections/connectionMysql.js";
+import { getDbConnection } from "./connections/connectionSqllite.js";
 import { MySQLStrategy, SQLiteStrategy } from "./DatabaseStrategy.js";
 import { DatabaseSchema } from "./schema/databaseSchema.js";
 
@@ -30,6 +30,10 @@ class DatabaseContext {
             console.log("Ambiente SQLite configurado com sucesso.");
             
         } else {
+
+            // Garante que o banco MariaDB/MySQL existe
+            await createDatabaseIfNotExists();
+
             this.strategy = new MySQLStrategy(pool);
             
             // GARANTIA: Define o tipo na estratégia para o Schema mapear corretamente

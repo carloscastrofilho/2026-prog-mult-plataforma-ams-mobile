@@ -1,5 +1,4 @@
-
-const apiUri = "http://192.168.13.243:3500"
+import { apiUri } from "./apiConfig";
 
 export async function AuthLogin( login:string , password:string){
     try {
@@ -38,6 +37,7 @@ export async function AuthRegister( {name, login, password }:UserProsp){
         const userPayload:UserProsp = {
             name,login, password
         }
+        console.log( userPayload);
         const response = await fetch( `${apiUri}/auth/register` , {
             method: 'POST',
             headers: {
